@@ -78,7 +78,13 @@ async def get_movie(message: types.Message):
         if not code.startswith("/"):
             await message.answer("😔 Afsus, bu kod bilan kino topilmadi.")
 
+def run_dummy_server():
+    server_address = ('', 10000)
+    httpd = HTTPServer(server_address, SimpleHTTPRequestHandler)
+    httpd.serve_forever()
+
 async def main():
+    threading.Thread(target=run_dummy_server, daemon=True).start()
     print("Bot kanalga bog'lanmasdan ishga tushdi...")
     await dp.start_polling(bot)
 
